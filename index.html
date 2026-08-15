@@ -25,7 +25,7 @@
             text-align: center;
             border: 2px solid #f06292;
         }
-        h2 { color: #880e4f; margin-bottom: 20px; }
+        h2 { color: #880e4f; margin-bottom: 20px; font-size: 20px; }
         .btn {
             display: block;
             width: 100%;
@@ -40,7 +40,7 @@
             transition: all 0.3s;
         }
         .btn:hover { background: #d81b60; transform: scale(1.02); }
-        #result { margin-top: 15px; font-weight: bold; height: 20px; }
+        #result { margin-top: 15px; font-weight: bold; height: 25px; }
         .heart { color: #d81b60; font-size: 50px; display: none; }
     </style>
 </head>
@@ -54,12 +54,12 @@
 
     <script>
         const questions = [
-            { q: "Aşağıdakılərdən hansı ən sevdiyim çiçəkdir?", options: ["Qızılgül", "Papatya", "Lalə", "Zanbaq"], correct: Papatya },
-            { q: "Aşağıdakılərdən hansı ən sevdiyim çizgi filmdir?", options: ["Winx Club", "Keloglan masalları", "Masha and bear", "Doraemon"], correct: Masha and bear },
-            { q: "Aşağıdakılərdən hansı kofe növünü daha çox sevirəm?", options: ["Latte", "Mocha", "Cappuccino", "Türk kahvesi"], correct: Capouccino },
-            { q: "Aşağıdaki xitablardan hansı daha çox xoşuma gəlir?", options: ["Gülüm", "Gözəlim", "Ömrüm", "Starım"], correct: Gülüm },
-            { q: "Aşağıdakılərdən hansı getmək istədiyim ölkələrdən biri deyil?", options: ["Fransa", "Hindistan", "İtaliya", "Cənubi Koreya"], correct: Hindistan },
-            { q: "Aşağıdakilərdən hansı ən çox sinir olduğum tiklerden biridi?", options: ["Qaşığın dişə dəyməsi", "Xorultu səsi", "Belimin yanına toxunulması", "Saçımın yonulması"], correct: Belimin yanına toxunulması }
+            { q: "Aşağıdakılərdən hansı ən sevdiyim çiçəkdir?", options: ["Qızılgül", "Papatya", "Lalə", "Zanbaq"], correct: 2 },
+            { q: "Aşağıdakılərdən hansı ən sevdiyim çizgi filmdir?", options: ["Winx Club", "Keloglan masalları", "Masha and bear", "Doraemon"], correct: 3 },
+            { q: "Aşağıdakılərdən hansı kofe növünü daha çox sevirəm?", options: ["Latte", "Mocha", "Cappuccino", "Türk kahvesi"], correct: 3 },
+            { q: "Aşağıdaki xitablardan hansı daha çox xoşuma gəlir?", options: ["Gülüm", "Gözəlim", "Ömrüm", "Starım"], correct: 1 },
+            { q: "Aşağıdakılərdən hansı getmək istədiyim ölkələrdən biri deyil?", options: ["Fransa", "Hindistan", "İtaliya", "Cənubi Koreya"], correct: 2 },
+            { q: "Aşağıdakilərdən hansı ən çox sinir olduğum tiklerden biridi?", options: ["Qaşığın dişə dəyməsi", "Xorultu səsi", "Belimin yanına toxunulması", "Saçımın yonulması"], correct: 3 }
         ];
 
         let currentQuestion = 0;
@@ -77,13 +77,22 @@
                     btn.onclick = () => checkAnswer(index, q.correct);
                     optionsDiv.appendChild(btn);
                 });
+                document.getElementById("result").innerText = "";
             } else {
                 document.getElementById("game-card").innerHTML = `
-                    <div class="heart">❤️</div>
+                    <div class="heart" style="display:block;">❤️</div>
                     <h2>Tebrikss! 🎉</h2>
-                    <p style="font-size: 1.2em;">Adilə səni çox sevir!</p>
+                    <p style="font-size: 1.05em; line-height: 1.5; color: #444; text-align: left; margin-top: 10px;">
+                        Bütün sualları cavablandırdın! İndi isə növbə sənin bonus tapşırığındadır:<br><br>
+                        <b>Bonus: Mənə akrostiş şeir yaz 🤗</b><br>
+                        <b>A</b> ...<br>
+                        <b>D</b> ...<br>
+                        <b>İ</b> ...<br>
+                        <b>L</b> ...<br>
+                        <b>Ə</b> ...<br><br>
+                        <center><i>(Şeiri yazıb mənə göndərməyi unutma! 😜)</i></center>
+                    </p>
                 `;
-                document.querySelector('.heart').style.display = 'block';
             }
         }
 
@@ -99,6 +108,8 @@
                 setTimeout(() => { document.body.style.animation = "shake 0.5s"; }, 10);
             }
         }
+
+        window.onload = loadQuestion;
     </script>
     <style>
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-10px);} 75% {transform: translateX(10px);} }
