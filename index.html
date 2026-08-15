@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adilə & Nihad ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            border: 2px solid #f06292;
+        }
+        h2 { color: #880e4f; margin-bottom: 20px; }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            background: #ec407a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover { background: #d81b60; transform: scale(1.02); }
+        #result { margin-top: 15px; font-weight: bold; height: 20px; }
+        .heart { color: #d81b60; font-size: 50px; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="game-card">
+        <h2 id="question">Sual yüklənir...</h2>
+        <div id="options"></div>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Aşağıdakılərdən hansı ən sevdiyim çiçəkdir?", options: ["Qızılgül", "Papatya", "Lalə", "Zanbaq"], correct: Papatya },
+            { q: "Aşağıdakılərdən hansı ən sevdiyim çizgi filmdir?", options: ["Winx Club", "Keloglan masalları", "Masha and bear", "Doraemon"], correct: Masha and bear },
+            { q: "Aşağıdakılərdən hansı kofe növünü daha çox sevirəm?", options: ["Latte", "Mocha", "Cappuccino", "Türk kahvesi"], correct: Capouccino },
+            { q: "Aşağıdaki xitablardan hansı daha çox xoşuma gəlir?", options: ["Gülüm", "Gözəlim", "Ömrüm", "Starım"], correct: Gülüm },
+            { q: "Aşağıdakılərdən hansı getmək istədiyim ölkələrdən biri deyil?", options: ["Fransa", "Hindistan", "İtaliya", "Cənubi Koreya"], correct: Hindistan },
+            { q: "Aşağıdakilərdən hansı ən çox sinir olduğum tiklerden biridi?", options: ["Qaşığın dişə dəyməsi", "Xorultu səsi", "Belimin yanına toxunulması", "Saçımın yonulması"], correct: Belimin yanına toxunulması }
+        ];
+
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                let q = questions[currentQuestion];
+                document.getElementById("question").innerText = q.q;
+                let optionsDiv = document.getElementById("options");
+                optionsDiv.innerHTML = "";
+                q.options.forEach((opt, index) => {
+                    let btn = document.createElement("button");
+                    btn.className = "btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkAnswer(index, q.correct);
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                document.getElementById("game-card").innerHTML = `
+                    <div class="heart">❤️</div>
+                    <h2>Tebrikss! 🎉</h2>
+                    <p style="font-size: 1.2em;">Adilə səni çox sevir!</p>
+                `;
+                document.querySelector('.heart').style.display = 'block';
+            }
+        }
+
+        function checkAnswer(selected, correct) {
+            let res = document.getElementById("result");
+            if (selected === correct) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                res.style.color = "#d32f2f";
+                res.innerText = "DIIIT YANLIŞ. Cərimə: 1 Adicto! 😜";
+                document.body.style.animation = "none";
+                setTimeout(() => { document.body.style.animation = "shake 0.5s"; }, 10);
+            }
+        }
+    </script>
+    <style>
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-10px);} 75% {transform: translateX(10px);} }
+    </style>
+</body>
+</html>
+
